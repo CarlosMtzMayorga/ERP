@@ -515,3 +515,4 @@ async def test_global_invoice_cfdi_40_generation():
         assert t1.global_invoice_id == global_invoice.id
         assert t2.is_globally_invoiced is True
         assert t2.global_invoice_id == global_invoice.id
+

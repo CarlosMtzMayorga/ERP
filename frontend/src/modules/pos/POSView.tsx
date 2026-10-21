@@ -894,3 +894,4 @@ export const POSView: React.FC = () => {
   );
 };
 export default POSView;
+

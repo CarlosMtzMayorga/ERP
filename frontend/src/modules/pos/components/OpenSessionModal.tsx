@@ -152,3 +152,4 @@ export const OpenSessionModal: React.FC<OpenSessionModalProps> = ({
     </div>
   );
 };
+

@@ -142,3 +142,4 @@ export const TicketReceiptModal: React.FC<TicketReceiptModalProps> = ({ ticket, 
     </div>
   );
 };
+

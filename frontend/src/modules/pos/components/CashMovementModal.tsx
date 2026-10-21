@@ -153,3 +153,4 @@ export const CashMovementModal: React.FC<CashMovementModalProps> = ({
     </div>
   );
 };
+

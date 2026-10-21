@@ -89,3 +89,4 @@ export interface CorteXData {
   expected_cash: number;
   expected_card: number;
 }
+

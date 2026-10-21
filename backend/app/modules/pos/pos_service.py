@@ -439,3 +439,4 @@ async def create_pos_ticket(
     db.add(ticket)
     await db.flush()
     return ticket
+

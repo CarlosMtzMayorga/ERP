@@ -382,3 +382,4 @@ async def generate_global_invoice(
     )
 
     return global_invoice
+

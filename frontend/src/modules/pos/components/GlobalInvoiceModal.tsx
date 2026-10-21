@@ -340,3 +340,4 @@ export const GlobalInvoiceModal: React.FC<GlobalInvoiceModalProps> = ({
     </div>
   );
 };
+

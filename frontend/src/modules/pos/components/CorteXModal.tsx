@@ -115,3 +115,4 @@ export const CorteXModal: React.FC<CorteXModalProps> = ({ data, isOpen, onClose 
     </div>
   );
 };
+

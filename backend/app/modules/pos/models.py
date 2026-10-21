@@ -167,3 +167,4 @@ class POSTicketItem(Base, TenantMixin):
 
     ticket = relationship("POSTicket", back_populates="items")
     product = relationship("app.modules.master_data.models.Product")
+
