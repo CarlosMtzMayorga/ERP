@@ -127,3 +127,4 @@ class SalesDocumentItem(Base, TenantMixin):
 
     document = relationship("SalesDocument", back_populates="items")
     product = relationship("app.modules.master_data.models.Product")
+

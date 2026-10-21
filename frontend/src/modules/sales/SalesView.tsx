@@ -56,3 +56,4 @@ export const SalesView: React.FC = () => {
     </div>
   );
 };
+

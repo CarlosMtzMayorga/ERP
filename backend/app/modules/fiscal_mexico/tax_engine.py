@@ -89,3 +89,4 @@ def calculate_document_totals(items_data: List[Dict[str, Any]]) -> Dict[str, Dec
         "retention_isr_total": quantize_2(retention_isr_total),
         "total": quantize_2(total)
     }
+

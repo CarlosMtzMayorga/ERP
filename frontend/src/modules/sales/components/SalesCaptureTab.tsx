@@ -514,3 +514,4 @@ export const SalesCaptureTab: React.FC<SalesCaptureTabProps> = ({ onDocumentCrea
     </div>
   );
 };
+

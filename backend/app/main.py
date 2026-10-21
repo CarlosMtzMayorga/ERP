@@ -10,6 +10,7 @@ from app.modules.tenants.csd_router import router as csd_router
 from app.modules.tenants.folios_router import router as folios_router
 from app.modules.inventories.router import router as inventory_router
 from app.modules.sales.router import router as sales_router
+from app.modules.pos.router import router as pos_router
 
 
 @asynccontextmanager
@@ -54,6 +55,7 @@ app.include_router(csd_router, prefix=settings.API_V1_STR)
 app.include_router(folios_router, prefix=settings.API_V1_STR)
 app.include_router(inventory_router, prefix=settings.API_V1_STR)
 app.include_router(sales_router, prefix=settings.API_V1_STR)
+app.include_router(pos_router, prefix=settings.API_V1_STR)
 
 
 if __name__ == "__main__":

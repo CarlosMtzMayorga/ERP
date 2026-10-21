@@ -417,3 +417,4 @@ export const SalesDocumentsTab: React.FC<SalesDocumentsTabProps> = ({ onGoToCapt
     </div>
   );
 };
+

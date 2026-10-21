@@ -256,3 +256,4 @@ async def test_cfdi_40_xml_and_digital_signature():
         assert "||4.0|A|1|" in stamped_inv.cfdi_cadena_original
 
     await engine.dispose()
+
