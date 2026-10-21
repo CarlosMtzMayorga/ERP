@@ -25,3 +25,4 @@ export interface TokenResponse {
   active_branch_id?: string;
   permissions: string[];
 }
+

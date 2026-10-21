@@ -230,3 +230,4 @@ class BankAccount(Base, TenantMixin):
     __table_args__ = (
         UniqueConstraint("tenant_id", "account_number", name="uq_bank_accounts_number"),
     )
+

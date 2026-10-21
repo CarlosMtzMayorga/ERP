@@ -78,3 +78,4 @@ async def list_branches(
         select(Branch).where(Branch.tenant_id == tenant.id).order_by(Branch.is_matrix.desc(), Branch.code)
     )
     return [BranchResponse.model_validate(b) for b in res.scalars().all()]
+

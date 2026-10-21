@@ -103,3 +103,4 @@ class AuditLog(Base, TenantMixin):
     ip_address = Column(String(45), nullable=True)
     user_agent = Column(String(255), nullable=True)
     details = Column(JSON, nullable=True)
+

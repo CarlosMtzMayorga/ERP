@@ -45,3 +45,4 @@ class TokenResponse(BaseModel):
     active_tenant_id: Optional[uuid.UUID] = None
     active_branch_id: Optional[uuid.UUID] = None
     permissions: List[str] = []
+

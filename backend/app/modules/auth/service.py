@@ -133,3 +133,4 @@ async def build_token_response(
         active_branch_id=active_branch_id,
         permissions=permissions
     )
+

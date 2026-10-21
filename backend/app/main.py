@@ -1,19 +1,19 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 from app.core.config import settings
 from app.modules.auth.router import router as auth_router
+from app.modules.auth.rbac_router import router as rbac_router
 from app.modules.tenants.router import router as tenants_router
+from app.modules.tenants.csd_router import router as csd_router
+from app.modules.tenants.folios_router import router as folios_router
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: logging and warmup
     print(f"[STARTUP] Iniciando {settings.PROJECT_NAME} en entorno: {settings.ENVIRONMENT}")
     yield
-    # Shutdown: connection cleanup
     print(f"[SHUTDOWN] Finalizando aplicación ERP.")
 
 
@@ -46,7 +46,10 @@ async def health_check():
 
 # Register API Routers
 app.include_router(auth_router, prefix=settings.API_V1_STR)
+app.include_router(rbac_router, prefix=settings.API_V1_STR)
 app.include_router(tenants_router, prefix=settings.API_V1_STR)
+app.include_router(csd_router, prefix=settings.API_V1_STR)
+app.include_router(folios_router, prefix=settings.API_V1_STR)
 
 
 if __name__ == "__main__":

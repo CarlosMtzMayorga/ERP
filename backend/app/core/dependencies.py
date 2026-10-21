@@ -140,3 +140,4 @@ def require_permission(permission_code: str):
         return True
 
     return permission_checker
+

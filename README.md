@@ -62,3 +62,4 @@ python scripts/init_db.py
 - **Email:** `admin@erpsaas.com`
 - **Contraseña:** `Admin123!*`
 - **Empresa Demo:** EMPRESA MODELO DE MEXICO S.A. DE C.V. (RFC: `EME200101XYZ`)
+

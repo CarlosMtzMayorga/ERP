@@ -90,3 +90,4 @@ class CSDCertificate(Base, TenantMixin):
     is_active = Column(Boolean, default=True, nullable=False)
 
     tenant = relationship("Tenant", back_populates="csd_certificates")
+

@@ -61,3 +61,4 @@ def encrypt_csd_key(private_key_pem: bytes) -> str:
 def decrypt_csd_key(encrypted_key_str: str) -> bytes:
     cipher = get_fernet_cipher()
     return cipher.decrypt(encrypted_key_str.encode("utf-8"))
+
