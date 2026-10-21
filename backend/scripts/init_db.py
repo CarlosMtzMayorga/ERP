@@ -15,6 +15,10 @@ from app.modules.master_data.models import (
     Currency, Warehouse, ProductCategory, Product, PriceList, ProductPrice,
     Customer, CustomerAddress, Supplier, BankAccount
 )
+from app.modules.inventories.models import ProductWarehouseStock, KardexMovement, CostLayer, KardexLayerConsumption, InventoryReservation
+from app.modules.sales.models import SalesDocument, SalesDocumentItem
+from app.modules.pos.models import CashRegister, CashSession, CashMovement, POSTicket, POSTicketItem
+from app.modules.cxc.models import ReceivableDocument, PaymentReceipt, PaymentReceiptDocRel
 
 # Standard initial permissions across all 10 ERP modules
 INITIAL_PERMISSIONS = [
@@ -70,17 +74,20 @@ INITIAL_PERMISSIONS = [
 
 async def init_database():
     """Initializes tables, seeds permissions, admin user and demo tenant."""
-    print(f"[*] Conectando a la base de datos: {settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}...")
+    db_url = settings.get_database_url()
+    is_sqlite = db_url.startswith("sqlite")
+    print(f"[*] Conectando a la base de datos: {db_url}...")
     
-    engine = create_async_engine(settings.get_database_url(), echo=False)
+    engine = create_async_engine(db_url, echo=False)
     session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
     async with engine.begin() as conn:
-        print("[*] Creando extensiones de PostgreSQL...")
-        await conn.execute(text('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'))
-        await conn.execute(text('CREATE EXTENSION IF NOT EXISTS "pgcrypto";'))
+        if not is_sqlite:
+            print("[*] Creando extensiones de PostgreSQL...")
+            await conn.execute(text('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'))
+            await conn.execute(text('CREATE EXTENSION IF NOT EXISTS "pgcrypto";'))
         
-        print("[*] Generando tablas del esquema en PostgreSQL...")
+        print("[*] Generando tablas del esquema...")
         await conn.run_sync(Base.metadata.create_all)
         print("[+] Tablas creadas con éxito.")
 

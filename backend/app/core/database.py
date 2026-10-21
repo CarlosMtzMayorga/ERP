@@ -13,15 +13,22 @@ from app.core.config import settings
 from app.core.tenant_context import get_current_tenant_id
 
 
-# PostgreSQL Async Engine with pool settings optimized for AWS RDS Free Tier (db.t3.micro / db.t4g.micro)
-engine = create_async_engine(
-    settings.get_database_url(),
-    echo=(settings.ENVIRONMENT == "development"),
-    pool_size=settings.DB_POOL_SIZE,
-    max_overflow=settings.DB_MAX_OVERFLOW,
-    pool_timeout=settings.DB_POOL_TIMEOUT,
-    pool_pre_ping=True,
-)
+# Engine configuration with conditional pooling for AWS RDS PostgreSQL vs local SQLite
+db_url = settings.get_database_url()
+is_sqlite = db_url.startswith("sqlite")
+
+engine_kwargs = {
+    "echo": (settings.ENVIRONMENT == "development")
+}
+if not is_sqlite:
+    engine_kwargs.update({
+        "pool_size": settings.DB_POOL_SIZE,
+        "max_overflow": settings.DB_MAX_OVERFLOW,
+        "pool_timeout": settings.DB_POOL_TIMEOUT,
+        "pool_pre_ping": True,
+    })
+
+engine = create_async_engine(db_url, **engine_kwargs)
 
 AsyncSessionLocal = async_sessionmaker(
     bind=engine,
@@ -61,7 +68,7 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
     """
     async with AsyncSessionLocal() as session:
         tenant_id = get_current_tenant_id()
-        if tenant_id:
+        if tenant_id and not is_sqlite:
             # Set PostgreSQL session config for Row-Level Security
             await session.execute(text(f"SET LOCAL app.current_tenant_id = '{str(tenant_id)}'"))
         try:

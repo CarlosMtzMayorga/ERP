@@ -71,3 +71,4 @@ export interface CustomerStatement {
     status: string;
   }[];
 }
+

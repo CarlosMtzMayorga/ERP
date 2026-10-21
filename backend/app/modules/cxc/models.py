@@ -139,3 +139,4 @@ class PaymentReceiptDocRel(Base, TenantMixin):
 
     payment_receipt = relationship("PaymentReceipt", back_populates="related_docs")
     receivable_document = relationship("ReceivableDocument", back_populates="installments")
+

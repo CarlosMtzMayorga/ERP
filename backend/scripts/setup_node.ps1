@@ -20,3 +20,4 @@ if ($userPath -notlike "*$targetDir*") {
 Write-Host "Node.js installed:"
 & "$targetDir\node.exe" -v
 & "$targetDir\npm.cmd" -v
+

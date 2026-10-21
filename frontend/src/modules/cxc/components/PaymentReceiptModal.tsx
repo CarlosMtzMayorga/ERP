@@ -73,3 +73,4 @@ export const PaymentReceiptModal: React.FC<PaymentReceiptModalProps> = ({
     </div>
   );
 };
+

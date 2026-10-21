@@ -14,3 +14,4 @@ Write-Host "NPM version: $(npm -v)"
 Set-Location frontend
 npm install
 npm run build
+
