@@ -285,3 +285,4 @@ export const MovementModal: React.FC<MovementModalProps> = ({
     </div>
   );
 };
+

@@ -23,11 +23,12 @@ async def consume_next_folio(
     esperará a que la fila se actualice y libere, impidiendo matemáticamente folios duplicados
     o saltos inconsistentes en la contabilidad y el SAT.
     """
+    doc_type_normalized = "FAC" if document_type.upper() in ("FAC", "FACTURA") else document_type.upper()
     query = (
         select(FiscalFoliosSeries)
         .where(
             FiscalFoliosSeries.tenant_id == tenant_id,
-            FiscalFoliosSeries.document_type == document_type.upper()
+            FiscalFoliosSeries.document_type.in_((doc_type_normalized, document_type.upper()))
         )
     )
 

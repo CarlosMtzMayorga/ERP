@@ -468,3 +468,4 @@ async def cancel_reservation(
     reservation.status = "CANCELLED"
     reservation.cancelled_at = datetime.now(timezone.utc)
     return reservation
+

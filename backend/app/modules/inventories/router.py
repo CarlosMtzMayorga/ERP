@@ -461,3 +461,4 @@ async def api_cancel_reservation(
         "reservation_id": reservation.id,
         "status": reservation.status
     }
+

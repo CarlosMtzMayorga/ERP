@@ -6,6 +6,7 @@ import { LoginView } from './modules/auth/LoginView';
 import { DashboardView } from './modules/dashboard/DashboardView';
 import { ConfigView } from './modules/config/ConfigView';
 import { InventoryView } from './modules/inventory/InventoryView';
+import { SalesView } from './modules/sales/SalesView';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -46,8 +47,8 @@ export const App: React.FC = () => {
             <Route path="dashboard" element={<DashboardView />} />
             <Route path="config" element={<ConfigView />} />
             <Route path="inventory" element={<InventoryView />} />
+            <Route path="sales" element={<SalesView />} />
             {/* Placeholders for upcoming modules in next phases */}
-            <Route path="sales" element={<DashboardView />} />
             <Route path="pos" element={<DashboardView />} />
             <Route path="cxc" element={<DashboardView />} />
             <Route path="purchases" element={<DashboardView />} />

@@ -157,3 +157,4 @@ class InventoryReservation(Base, TenantMixin):
     __table_args__ = (
         Index("idx_reservations_status", "tenant_id", "warehouse_id", "product_id", "status"),
     )
+

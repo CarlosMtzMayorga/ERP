@@ -296,3 +296,4 @@ export const KardexTab: React.FC = () => {
     </div>
   );
 };
+

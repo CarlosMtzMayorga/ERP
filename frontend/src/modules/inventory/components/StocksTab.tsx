@@ -255,3 +255,4 @@ export const StocksTab: React.FC<StocksTabProps> = ({ onOpenMovementModal }) => 
     </div>
   );
 };
+
