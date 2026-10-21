@@ -129,6 +129,24 @@ async def create_sales_document(
     # 3. Consolidar totales del documento
     doc_totals = calculate_document_totals(items_tax_input)
 
+    # Hook de Validación de Crédito y Cobranza (CxC):
+    # Si es Pedido, Remisión o Factura a crédito (PPD), se evalúa si el cliente tiene facturas vencidas o sobregiro
+    if doc_type_clean in ("PEDIDO", "REMISION", "FACTURA"):
+        from app.modules.cxc.cxc_service import check_customer_credit_status, create_receivable_from_sales_document
+        is_credit = (payment_method == "PPD") or (doc_type_clean in ("PEDIDO", "REMISION"))
+        if is_credit:
+            credit_ok, credit_reason, _ = await check_customer_credit_status(
+                db=db,
+                tenant_id=tenant_id,
+                customer_id=customer_id,
+                attempted_amount=doc_totals["total"]
+            )
+            if not credit_ok:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=f"Rechazado por Control de Crédito: {credit_reason}"
+                )
+
     status_initial = "BORRADOR"
     if doc_type_clean == "PEDIDO" and approve_immediately:
         status_initial = "APROBADO"
@@ -210,6 +228,11 @@ async def create_sales_document(
                 item_model.total_cost = mov.total_cost
                 doc_total_cogs += mov.total_cost
         doc.total_cost_cogs = doc_total_cogs
+
+    # C) Si es Factura PPD -> Generar Cargo en Cuentas por Cobrar (CxC)
+    if doc_type_clean == "FACTURA" and payment_method == "PPD":
+        cust = (await db.execute(select(Customer).where(Customer.id == customer_id))).scalar_one()
+        await create_receivable_from_sales_document(db=db, sales_doc=doc, customer=cust)
 
     return doc
 
@@ -369,6 +392,11 @@ async def convert_order_to_invoice(
 
     db.add(invoice)
     await db.flush()
+
+    if invoice.payment_method == "PPD":
+        from app.modules.cxc.cxc_service import create_receivable_from_sales_document
+        cust = (await db.execute(select(Customer).where(Customer.id == invoice.customer_id))).scalar_one()
+        await create_receivable_from_sales_document(db=db, sales_doc=invoice, customer=cust)
 
     return invoice
 

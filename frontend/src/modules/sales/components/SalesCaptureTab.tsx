@@ -364,7 +364,7 @@ export const SalesCaptureTab: React.FC<SalesCaptureTabProps> = ({ onDocumentCrea
           <div className="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-card border border-slate-200 max-h-60 overflow-y-auto z-40">
             {filteredSearchProducts.map((p) => (
               <button
-                key={`${p.warehouse_id}-${p.product_id}`}
+                key={p.product_id}
                 onClick={() => addLine(p)}
                 className="w-full text-left px-5 py-3 hover:bg-blue-50/70 border-b border-slate-100 last:border-0 flex items-center justify-between text-xs transition-colors"
               >
