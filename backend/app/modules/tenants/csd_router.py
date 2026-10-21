@@ -164,3 +164,4 @@ async def delete_csd_certificate(
     await db.delete(csd)
     await db.commit()
     return None
+

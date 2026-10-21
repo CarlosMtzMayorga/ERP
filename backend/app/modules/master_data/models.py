@@ -1,7 +1,7 @@
 import uuid
 from decimal import Decimal
 from sqlalchemy import (
-    Column, String, Boolean, ForeignKey, Numeric, Text, JSON, Uuid, UniqueConstraint
+    Column, String, Boolean, ForeignKey, Numeric, Text, JSON, Uuid, UniqueConstraint, Integer
 )
 from sqlalchemy.orm import relationship
 
@@ -93,6 +93,11 @@ class Product(Base, TenantMixin):
     last_cost = Column(Numeric(14, 4), default=Decimal("0.0000"), nullable=False)
     average_cost = Column(Numeric(14, 4), default=Decimal("0.0000"), nullable=False)
     base_price = Column(Numeric(14, 4), default=Decimal("0.0000"), nullable=False)
+
+    # Control de Stock y Alertas (Semáforos)
+    min_stock = Column(Numeric(14, 4), default=Decimal("5.0000"), nullable=False)
+    max_stock = Column(Numeric(14, 4), default=Decimal("100.0000"), nullable=False)
+    reorder_point = Column(Numeric(14, 4), default=Decimal("15.0000"), nullable=False)
 
     is_active = Column(Boolean, default=True, nullable=False)
 

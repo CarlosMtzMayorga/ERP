@@ -77,3 +77,4 @@ async def consume_next_folio(
     await db.flush()  # Conserva el bloqueo en la transacción actual
 
     return serie_row.serie, next_folio, serie_row.id
+

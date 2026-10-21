@@ -104,3 +104,4 @@ def test_csd_rfc_mismatch():
             expected_rfc="EME200101XYZ"
         )
     assert "no coincide con el RFC de la empresa" in str(exc.value)
+

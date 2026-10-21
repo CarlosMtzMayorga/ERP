@@ -72,3 +72,4 @@ async def test_atomic_folio_consumption():
         assert next_folio2 == 101
 
     await engine.dispose()
+

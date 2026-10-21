@@ -212,3 +212,4 @@ def get_decrypted_private_key(encrypted_private_key_str: str) -> rsa.RSAPrivateK
     """
     raw_pem = decrypt_csd_key(encrypted_private_key_str)
     return serialization.load_pem_private_key(raw_pem, password=None)
+

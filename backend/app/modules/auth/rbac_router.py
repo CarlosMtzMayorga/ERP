@@ -372,3 +372,4 @@ async def update_user_roles(
         roles=assigned_names,
         role_ids=payload.role_ids
     )
+

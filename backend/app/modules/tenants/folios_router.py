@@ -185,3 +185,4 @@ async def test_consume_folio(
         formatted_folio=f"{serie}-{next_folio}",
         series_id=series_id
     )
+

@@ -83,3 +83,4 @@ async def test_rbac_roles_and_permissions():
         assert "config:manage" not in granted_codes  # Not granted
 
     await engine.dispose()
+

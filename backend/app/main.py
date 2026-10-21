@@ -8,6 +8,7 @@ from app.modules.auth.rbac_router import router as rbac_router
 from app.modules.tenants.router import router as tenants_router
 from app.modules.tenants.csd_router import router as csd_router
 from app.modules.tenants.folios_router import router as folios_router
+from app.modules.inventories.router import router as inventory_router
 
 
 @asynccontextmanager
@@ -50,6 +51,7 @@ app.include_router(rbac_router, prefix=settings.API_V1_STR)
 app.include_router(tenants_router, prefix=settings.API_V1_STR)
 app.include_router(csd_router, prefix=settings.API_V1_STR)
 app.include_router(folios_router, prefix=settings.API_V1_STR)
+app.include_router(inventory_router, prefix=settings.API_V1_STR)
 
 
 if __name__ == "__main__":
