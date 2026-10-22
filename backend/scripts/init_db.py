@@ -19,6 +19,7 @@ from app.modules.inventories.models import ProductWarehouseStock, KardexMovement
 from app.modules.sales.models import SalesDocument, SalesDocumentItem
 from app.modules.pos.models import CashRegister, CashSession, CashMovement, POSTicket, POSTicketItem
 from app.modules.cxc.models import ReceivableDocument, PaymentReceipt, PaymentReceiptDocRel
+from app.modules.purchases.models import PurchaseDocument, PurchaseDocumentItem, PayableDocument
 
 # Standard initial permissions across all 10 ERP modules
 INITIAL_PERMISSIONS = [
@@ -171,6 +172,9 @@ async def init_database():
                 ("REM", "R", 1, "Remisiones"),
                 ("REP", "P", 1, "Complementos de Pago"),
                 ("NOM", "NOM", 1, "Recibos de Nómina"),
+                ("OC", "OC", 1, "Órdenes de Compra"),
+                ("REC", "REC", 1, "Recepciones de Mercancía"),
+                ("FAC_PROV", "FP", 1, "Facturas de Proveedor"),
             ]
             for doc_type, serie, folio, _ in series_list:
                 folio_serie = FiscalFoliosSeries(
