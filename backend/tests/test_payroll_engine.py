@@ -325,3 +325,4 @@ async def test_payroll_incident_faltas_decreases_paid_days_and_salary():
     assert calc_con_faltas["total_perceptions"] == Decimal("6000.00")
     # Al disminuir el ingreso de 7500 a 6000, la retención de ISR disminuye automáticamente
     assert calc_con_faltas["isr_retention"] < calc_sin_faltas["isr_retention"]
+

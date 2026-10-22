@@ -234,6 +234,14 @@ async def create_sales_document(
         cust = (await db.execute(select(Customer).where(Customer.id == customer_id))).scalar_one()
         await create_receivable_from_sales_document(db=db, sales_doc=doc, customer=cust)
 
+    # D) Si es Factura -> Contabilización Automática en Tiempo Real (Fase 10 - Contabilidad)
+    if doc_type_clean == "FACTURA":
+        try:
+            from app.modules.accounting.accounting_service import create_automatic_sales_journal_entry
+            await create_automatic_sales_journal_entry(db=db, tenant_id=tenant_id, sales_doc=doc)
+        except Exception as e:
+            print(f"[ACCOUNTING] Log contable automático: {e}")
+
     return doc
 
 
@@ -397,6 +405,13 @@ async def convert_order_to_invoice(
         from app.modules.cxc.cxc_service import create_receivable_from_sales_document
         cust = (await db.execute(select(Customer).where(Customer.id == invoice.customer_id))).scalar_one()
         await create_receivable_from_sales_document(db=db, sales_doc=invoice, customer=cust)
+
+    # Contabilización Automática en Tiempo Real
+    try:
+        from app.modules.accounting.accounting_service import create_automatic_sales_journal_entry
+        await create_automatic_sales_journal_entry(db=db, tenant_id=tenant_id, sales_doc=invoice)
+    except Exception as e:
+        print(f"[ACCOUNTING] Log contable automático conversión pedido: {e}")
 
     return invoice
 

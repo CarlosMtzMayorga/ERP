@@ -435,3 +435,4 @@ async def get_receipt_detail(
             for it in receipt.items
         ]
     )
+

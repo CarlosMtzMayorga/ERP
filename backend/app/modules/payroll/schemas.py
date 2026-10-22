@@ -229,3 +229,4 @@ class PayrollDashboardMetrics(BaseModel):
     active_periods_count: int
     social_burden_percentage: Decimal
     recent_periods: List[PayrollPeriodResponse] = []
+

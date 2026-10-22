@@ -341,3 +341,4 @@ def generate_payroll_cfdi_xml(
 
     xml_str = ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("utf-8")
     return xml_str, cadena, sello
+

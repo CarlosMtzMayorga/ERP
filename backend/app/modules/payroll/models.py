@@ -193,3 +193,4 @@ class PayrollReceiptItem(Base):
     total_amount = Column(Numeric(12, 2), nullable=False)
 
     receipt = relationship("PayrollReceipt", back_populates="items")
+

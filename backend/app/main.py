@@ -16,6 +16,7 @@ from app.modules.purchases.router import router as purchases_router
 from app.modules.banking.router import router as banking_router
 from app.modules.cxp.router import router as cxp_router
 from app.modules.payroll.router import router as payroll_router
+from app.modules.accounting.router import router as accounting_router
 
 
 @asynccontextmanager
@@ -66,6 +67,7 @@ app.include_router(purchases_router, prefix=settings.API_V1_STR)
 app.include_router(banking_router, prefix=settings.API_V1_STR)
 app.include_router(cxp_router, prefix=settings.API_V1_STR)
 app.include_router(payroll_router, prefix=settings.API_V1_STR)
+app.include_router(accounting_router, prefix=settings.API_V1_STR)
 
 
 if __name__ == "__main__":

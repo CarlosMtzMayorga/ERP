@@ -333,3 +333,4 @@ def calculate_employee_payroll(
         "imss_employer_cost": imss_employer,
         "items": perceptions_items + deductions_items
     }
+

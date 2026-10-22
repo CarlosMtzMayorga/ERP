@@ -23,6 +23,8 @@ from app.modules.purchases.models import PurchaseDocument, PurchaseDocumentItem,
 from app.modules.banking.models import BankTransaction
 from app.modules.cxp.models import SupplierPayment, SupplierPaymentDocRel
 from app.modules.payroll.models import Employee, PayrollPeriod, PayrollIncident, PayrollReceipt, PayrollReceiptItem
+from app.modules.accounting.models import Account, JournalEntry, JournalEntryLine
+from app.modules.accounting.chart_of_accounts import seed_default_chart_of_accounts
 
 # Standard initial permissions across all 10 ERP modules
 INITIAL_PERMISSIONS = [
@@ -418,6 +420,10 @@ async def init_database():
                 session.add_all(demo_employees)
                 await session.commit()
                 print("[+] 3 Empleados demo registrados exitosamente con RFC, CURP, NSS y Salarios LFT.")
+
+            # Seed Chart of Accounts for Accounting
+            chart_accs = await seed_default_chart_of_accounts(session, demo_tenant.id)
+            print(f"[+] Catálogo de Cuentas Contables Anexo 24 SAT configurado ({len(chart_accs)} cuentas).")
 
         await engine.dispose()
     print("\n[SUCCESS] Inicialización completada exitosamente.")

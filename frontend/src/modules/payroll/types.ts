@@ -138,3 +138,4 @@ export interface BankAccount {
   reconciled_balance: number;
   is_active: boolean;
 }
+
