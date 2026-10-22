@@ -10,6 +10,8 @@ import { SalesView } from './modules/sales/SalesView';
 import { POSView } from './modules/pos/POSView';
 import { CxCView } from './modules/cxc/CxCView';
 import { PurchasesView } from './modules/purchases/PurchasesView';
+import { CxPView } from './modules/cxp/CxPView';
+import { BankingView } from './modules/banking/BankingView';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -54,8 +56,8 @@ export const App: React.FC = () => {
             <Route path="pos" element={<POSView />} />
             <Route path="cxc" element={<CxCView />} />
             <Route path="purchases" element={<PurchasesView />} />
-            <Route path="cxp" element={<DashboardView />} />
-            <Route path="banking" element={<DashboardView />} />
+            <Route path="cxp" element={<CxPView />} />
+            <Route path="banking" element={<BankingView />} />
             <Route path="payroll" element={<DashboardView />} />
             <Route path="accounting" element={<DashboardView />} />
           </Route>

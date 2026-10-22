@@ -20,6 +20,8 @@ from app.modules.sales.models import SalesDocument, SalesDocumentItem
 from app.modules.pos.models import CashRegister, CashSession, CashMovement, POSTicket, POSTicketItem
 from app.modules.cxc.models import ReceivableDocument, PaymentReceipt, PaymentReceiptDocRel
 from app.modules.purchases.models import PurchaseDocument, PurchaseDocumentItem, PayableDocument
+from app.modules.banking.models import BankTransaction
+from app.modules.cxp.models import SupplierPayment, SupplierPaymentDocRel
 
 # Standard initial permissions across all 10 ERP modules
 INITIAL_PERMISSIONS = [
@@ -91,6 +93,12 @@ async def init_database():
         print("[*] Generando tablas del esquema...")
         await conn.run_sync(Base.metadata.create_all)
         print("[+] Tablas creadas con éxito.")
+
+        if is_sqlite:
+            try:
+                await conn.execute(text("ALTER TABLE bank_accounts ADD COLUMN reconciled_balance NUMERIC(14, 2) DEFAULT 0.00;"))
+            except Exception:
+                pass
 
     async with session_maker() as session:
         # 1. Seed Permissions
@@ -175,6 +183,7 @@ async def init_database():
                 ("OC", "OC", 1, "Órdenes de Compra"),
                 ("REC", "REC", 1, "Recepciones de Mercancía"),
                 ("FAC_PROV", "FP", 1, "Facturas de Proveedor"),
+                ("PAG_PROV", "PP", 1, "Pagos a Proveedores"),
             ]
             for doc_type, serie, folio, _ in series_list:
                 folio_serie = FiscalFoliosSeries(
@@ -277,10 +286,31 @@ async def init_database():
 
             await session.commit()
             print("[+] Empresa modelo y catálogos maestros iniciales configurados exitosamente.")
-        else:
-            print("[i] Empresa modelo ya existe.")
+        # Check or create default BankAccount
+        acc_res = await session.execute(select(BankAccount).limit(1))
+        existing_acc = acc_res.scalar_one_or_none()
+        if not existing_acc and demo_tenant:
+            mxn_res = await session.execute(
+                select(Currency).where(Currency.tenant_id == demo_tenant.id, Currency.code == "MXN")
+            )
+            mxn_curr = mxn_res.scalar_one_or_none()
+            if mxn_curr:
+                default_acc = BankAccount(
+                    tenant_id=demo_tenant.id,
+                    bank_name="BBVA México",
+                    account_number="0123456789",
+                    clabe="012180001234567890",
+                    currency_id=mxn_curr.id,
+                    sat_banco_code="012",
+                    current_balance=Decimal("250000.00"),
+                    reconciled_balance=Decimal("0.00"),
+                    is_active=True
+                )
+                session.add(default_acc)
+                await session.commit()
+                print("[+] Cuenta bancaria inicial configurada con $250,000.00 MXN de saldo de apertura.")
 
-    await engine.dispose()
+        await engine.dispose()
     print("\n[SUCCESS] Inicialización completada exitosamente.")
     print("=" * 65)
     print("Credenciales de Acceso Inicial:")

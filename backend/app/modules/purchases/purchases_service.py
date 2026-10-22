@@ -887,3 +887,4 @@ async def get_dashboard_metrics(
         active_suppliers_count=active_suppliers,
         top_suppliers=top_suppliers
     )
+

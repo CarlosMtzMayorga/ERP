@@ -168,3 +168,4 @@ class PayableDocument(Base, TenantMixin):
     __table_args__ = (
         Index("idx_cxp_supplier_due", "tenant_id", "supplier_id", "due_date", "status"),
     )
+

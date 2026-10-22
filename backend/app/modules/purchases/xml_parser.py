@@ -199,3 +199,4 @@ def parse_cfdi_40_xml(xml_content: Union[str, bytes]) -> Dict[str, Any]:
         "total_retenciones": total_ret_iva + total_ret_isr,
         "concepts": concepts,
     }
+

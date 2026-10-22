@@ -276,7 +276,8 @@ async def apply_payment_receipt(
     allocations: List[Dict[str, Any]],  # [{"receivable_id": UUID, "amount_paid": Decimal}]
     payment_date: Optional[datetime] = None,
     operation_number: Optional[str] = None,
-    notes: Optional[str] = None
+    notes: Optional[str] = None,
+    bank_account_id: Optional[uuid.UUID] = None
 ) -> PaymentReceipt:
     """
     Aplica un Recibo de Pago (REP 2.0 / CFDI 4.0 tipo P):
@@ -591,6 +592,36 @@ async def apply_payment_receipt(
     payment_receipt.cfdi_stamped_at = datetime.fromisoformat(pac_res["stamped_at"]).replace(tzinfo=timezone.utc)
     payment_receipt.cfdi_sello = sello
     payment_receipt.cfdi_cadena_original = cadena_original
+
+    # 7. INTEGRACIÓN BANCARIA RETROACTIVA (Fase 8):
+    # El dinero cobrado al cliente ingresa automáticamente como un 'DEPOSITO' / 'COBRO_CLIENTE' en Bancos
+    target_bank_id = bank_account_id
+    if not target_bank_id:
+        from app.modules.master_data.models import BankAccount
+        bank_res = await db.execute(
+            select(BankAccount.id).where(
+                BankAccount.tenant_id == tenant_id,
+                BankAccount.is_active.is_(True)
+            ).limit(1)
+        )
+        target_bank_id = bank_res.scalar_one_or_none()
+
+    if target_bank_id:
+        from app.modules.banking.banking_service import record_bank_transaction
+        await record_bank_transaction(
+            db=db,
+            tenant_id=tenant_id,
+            bank_account_id=target_bank_id,
+            amount=amount,
+            direction="IN",
+            transaction_type="COBRO_CLIENTE",
+            reference_type="COBRO_CLIENTE",
+            reference_id=payment_receipt.id,
+            reference_folio=payment_receipt.formatted_folio,
+            operation_number=operation_number,
+            notes=f"Cobro a cliente {customer.legal_name} con REP 2.0 {payment_receipt.formatted_folio}",
+            user_id=user_id
+        )
 
     await db.flush()
     return payment_receipt

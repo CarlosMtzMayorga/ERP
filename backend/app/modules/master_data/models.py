@@ -230,7 +230,10 @@ class BankAccount(Base, TenantMixin):
     currency_id = Column(Uuid(as_uuid=True), ForeignKey("currencies.id", ondelete="RESTRICT"), nullable=False)
     sat_banco_code = Column(String(10), nullable=True)   # Clave SAT de institución bancaria
     current_balance = Column(Numeric(14, 2), default=Decimal("0.00"), nullable=False)
+    reconciled_balance = Column(Numeric(14, 2), default=Decimal("0.00"), nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
+
+    currency = relationship("Currency")
 
     __table_args__ = (
         UniqueConstraint("tenant_id", "account_number", name="uq_bank_accounts_number"),

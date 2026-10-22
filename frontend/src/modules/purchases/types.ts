@@ -123,3 +123,4 @@ export interface XMLInvoicePreview {
   supplier_credit_days: number;
   concepts: XMLConceptPreview[];
 }
+

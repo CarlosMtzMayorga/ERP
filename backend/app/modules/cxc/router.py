@@ -39,6 +39,7 @@ class ApplyPaymentRequest(BaseModel):
     payment_date: Optional[datetime] = None
     operation_number: Optional[str] = None
     notes: Optional[str] = None
+    bank_account_id: Optional[uuid.UUID] = None
 
 
 class CustomerCreditCheckResponse(BaseModel):
@@ -290,7 +291,8 @@ async def create_payment_endpoint(
         allocations=allocations_raw,
         payment_date=req.payment_date,
         operation_number=req.operation_number,
-        notes=req.notes
+        notes=req.notes,
+        bank_account_id=req.bank_account_id
     )
     await db.commit()
 

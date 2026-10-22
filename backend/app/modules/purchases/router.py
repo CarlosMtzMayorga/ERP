@@ -241,3 +241,4 @@ async def list_accounts_payable(
             resp.supplier_rfc = p.supplier.rfc
         output.append(resp)
     return output
+

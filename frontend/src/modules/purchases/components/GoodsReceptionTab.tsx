@@ -351,3 +351,4 @@ export const GoodsReceptionTab: React.FC<Props> = ({
     </div>
   );
 };
+

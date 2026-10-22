@@ -164,3 +164,4 @@ export const AccountsPayableTab: React.FC<Props> = ({ payables }) => {
     </div>
   );
 };
+
