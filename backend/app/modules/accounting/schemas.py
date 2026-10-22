@@ -188,3 +188,4 @@ class AccountingDashboardMetrics(BaseModel):
     gross_margin_percentage: Decimal
     unbalanced_entries_count: int
     recent_entries: List[JournalEntryResponse] = []
+

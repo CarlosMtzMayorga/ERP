@@ -233,3 +233,4 @@ async def get_balance_sheet_report(
 ):
     """Balance General (Estado de Situación Financiera): Activo = Pasivo + Capital."""
     return await accounting_service.get_balance_sheet(db, tenant_id, as_of_date=as_of_date)
+

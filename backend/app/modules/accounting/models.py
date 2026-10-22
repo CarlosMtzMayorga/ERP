@@ -102,3 +102,4 @@ class JournalEntryLine(Base):
     # Relaciones
     journal_entry = relationship("JournalEntry", back_populates="lines")
     account = relationship("Account")
+

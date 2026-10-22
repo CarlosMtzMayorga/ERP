@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { MainLayout } from './components/layout/MainLayout';
 import { LoginView } from './modules/auth/LoginView';
 import { DashboardView } from './modules/dashboard/DashboardView';
@@ -39,33 +40,35 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 export const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<LoginView />} />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <MainLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/dashboard" replace />} />
-            <Route path="dashboard" element={<DashboardView />} />
-            <Route path="config" element={<ConfigView />} />
-            <Route path="inventory" element={<InventoryView />} />
-            <Route path="sales" element={<SalesView />} />
-            <Route path="pos" element={<POSView />} />
-            <Route path="cxc" element={<CxCView />} />
-            <Route path="purchases" element={<PurchasesView />} />
-            <Route path="cxp" element={<CxPView />} />
-            <Route path="banking" element={<BankingView />} />
-            <Route path="payroll" element={<PayrollView />} />
-            <Route path="accounting" element={<AccountingView />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<LoginView />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <MainLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="/dashboard" replace />} />
+              <Route path="dashboard" element={<DashboardView />} />
+              <Route path="config" element={<ConfigView />} />
+              <Route path="inventory" element={<InventoryView />} />
+              <Route path="sales" element={<SalesView />} />
+              <Route path="pos" element={<POSView />} />
+              <Route path="cxc" element={<CxCView />} />
+              <Route path="purchases" element={<PurchasesView />} />
+              <Route path="cxp" element={<CxPView />} />
+              <Route path="banking" element={<BankingView />} />
+              <Route path="payroll" element={<PayrollView />} />
+              <Route path="accounting" element={<AccountingView />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };

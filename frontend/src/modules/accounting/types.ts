@@ -124,3 +124,4 @@ export interface AccountingDashboardMetrics {
   unbalanced_entries_count: number;
   recent_entries: JournalEntry[];
 }
+

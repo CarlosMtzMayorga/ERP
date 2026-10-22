@@ -391,11 +391,11 @@ export const PayrollView: React.FC = () => {
       {/* Module Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl">
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-blue-600/20 border border-blue-500/30 rounded-xl flex items-center justify-center text-blue-400">
-            <Users className="w-6 h-6" />
+          <div className="w-12 h-12 bg-[#047857]/20 border border-[#047857]/30 rounded-xl flex items-center justify-center text-emerald-400">
+            <Users className="w-6 h-6 text-emerald-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Nómina y Recursos Humanos</h1>
+            <h1 className="text-2xl font-bold text-white tracking-tight">Módulo 9: Nómina y Recursos Humanos</h1>
             <p className="text-slate-400 text-sm">
               Cálculo de ISR (Art. 96), Cuotas Obreras IMSS, Prenómina rápida, CFDI 1.2 y Dispersión Bancaria
             </p>
@@ -405,14 +405,14 @@ export const PayrollView: React.FC = () => {
         <div className="flex items-center space-x-3">
           <button
             onClick={() => setShowNewPeriodModal(true)}
-            className="flex items-center space-x-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-blue-500/20 transition-all"
+            className="flex items-center space-x-2 px-4 py-2.5 bg-[#047857] hover:bg-emerald-800 text-white rounded-xl text-sm font-semibold shadow-lg shadow-emerald-950/40 transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Nuevo Periodo</span>
           </button>
           <button
             onClick={() => setShowNewEmployeeModal(true)}
-            className="flex items-center space-x-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-sm font-semibold transition-all"
+            className="flex items-center space-x-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-sm font-semibold transition-all cursor-pointer"
           >
             <UserCheck className="w-4 h-4" />
             <span>Alta Empleado</span>
@@ -444,9 +444,9 @@ export const PayrollView: React.FC = () => {
       <div className="flex border-b border-slate-800 space-x-2">
         <button
           onClick={() => setActiveTab('dashboard')}
-          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
+          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all cursor-pointer ${
             activeTab === 'dashboard'
-              ? 'border-blue-500 text-blue-400'
+              ? 'border-emerald-500 text-emerald-400 font-bold'
               : 'border-transparent text-slate-400 hover:text-slate-200'
           }`}
         >
@@ -456,9 +456,9 @@ export const PayrollView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('periods')}
-          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
+          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all cursor-pointer ${
             activeTab === 'periods'
-              ? 'border-blue-500 text-blue-400'
+              ? 'border-emerald-500 text-emerald-400 font-bold'
               : 'border-transparent text-slate-400 hover:text-slate-200'
           }`}
         >
@@ -473,9 +473,9 @@ export const PayrollView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('prenomina')}
-          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
+          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all cursor-pointer ${
             activeTab === 'prenomina'
-              ? 'border-blue-500 text-blue-400'
+              ? 'border-emerald-500 text-emerald-400 font-bold'
               : 'border-transparent text-slate-400 hover:text-slate-200'
           }`}
         >
@@ -485,9 +485,9 @@ export const PayrollView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('employees')}
-          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all ${
+          className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 transition-all cursor-pointer ${
             activeTab === 'employees'
-              ? 'border-blue-500 text-blue-400'
+              ? 'border-emerald-500 text-emerald-400 font-bold'
               : 'border-transparent text-slate-400 hover:text-slate-200'
           }`}
         >

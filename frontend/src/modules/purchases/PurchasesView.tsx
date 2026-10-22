@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import {
   PurchasesDashboardMetrics,
   PurchaseDocument,
@@ -106,19 +107,24 @@ export const PurchasesView: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="space-y-6 max-w-7xl mx-auto font-sans"
+    >
       {/* Module Title & Tab Navigation */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
-            <div className="p-2 bg-blue-600 text-white rounded-xl shadow-md shadow-blue-500/20">
-              <ShoppingBag className="w-5 h-5" />
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-xl bg-[#047857]/10 dark:bg-[#047857]/20 text-[#047857] flex items-center justify-center">
+              <ShoppingBag className="w-5 h-5 text-[#047857]" />
             </div>
-            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
-              Compras y Abastecimiento
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+              Módulo 6: Compras y Abastecimiento
             </h1>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             Gestión del ciclo de compras, recepción física en almacén, valuación PEPS y pasivos con proveedores (CxP).
           </p>
         </div>
@@ -127,7 +133,7 @@ export const PurchasesView: React.FC = () => {
           <button
             onClick={fetchPurchasesData}
             disabled={loading}
-            className="p-2.5 bg-white border border-slate-200 text-slate-600 hover:text-blue-600 rounded-xl text-xs font-semibold shadow-2xs hover:bg-slate-50 transition-colors"
+            className="p-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:text-[#047857] dark:hover:text-emerald-400 rounded-xl text-xs font-semibold shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
             title="Actualizar datos"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -135,14 +141,14 @@ export const PurchasesView: React.FC = () => {
         </div>
       </div>
 
-      {/* Tabs Menu */}
-      <div className="flex border-b border-slate-200 space-x-2 overflow-x-auto pb-px">
+      {/* Tabs Menu with Emerald Accent */}
+      <div className="flex border-b border-gray-200 dark:border-gray-700 space-x-2 overflow-x-auto pb-px">
         <button
           onClick={() => setActiveTab('dashboard')}
-          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap ${
+          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap cursor-pointer ${
             activeTab === 'dashboard'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
+              ? 'border-[#047857] text-[#047857] dark:text-emerald-400'
+              : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
           }`}
         >
           <LayoutDashboard className="w-4 h-4" />
@@ -151,10 +157,10 @@ export const PurchasesView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('orders')}
-          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap ${
+          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap cursor-pointer ${
             activeTab === 'orders'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
+              ? 'border-[#047857] text-[#047857] dark:text-emerald-400'
+              : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
           }`}
         >
           <FileText className="w-4 h-4" />
@@ -163,10 +169,10 @@ export const PurchasesView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('reception')}
-          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap ${
+          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap cursor-pointer ${
             activeTab === 'reception'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
+              ? 'border-[#047857] text-[#047857] dark:text-emerald-400'
+              : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
           }`}
         >
           <PackageCheck className="w-4 h-4" />
@@ -175,10 +181,10 @@ export const PurchasesView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('xml_import')}
-          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap ${
+          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap cursor-pointer ${
             activeTab === 'xml_import'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
+              ? 'border-[#047857] text-[#047857] dark:text-emerald-400'
+              : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
           }`}
         >
           <UploadCloud className="w-4 h-4" />
@@ -187,10 +193,10 @@ export const PurchasesView: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('payables')}
-          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap ${
+          className={`flex items-center space-x-2 py-3 px-4 border-b-2 font-bold text-xs transition-colors whitespace-nowrap cursor-pointer ${
             activeTab === 'payables'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-500 hover:text-slate-800'
+              ? 'border-[#047857] text-[#047857] dark:text-emerald-400'
+              : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
           }`}
         >
           <CreditCard className="w-4 h-4" />
@@ -253,7 +259,7 @@ export const PurchasesView: React.FC = () => {
       {activeTab === 'payables' && (
         <AccountsPayableTab payables={payables} />
       )}
-    </div>
+    </motion.div>
   );
 };
 

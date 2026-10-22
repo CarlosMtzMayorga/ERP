@@ -949,3 +949,4 @@ async def get_accounting_dashboard(
         unbalanced_entries_count=0,
         recent_entries=recent_summary
     )
+

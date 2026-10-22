@@ -117,3 +117,4 @@ async def seed_default_chart_of_accounts(db: AsyncSession, tenant_id: uuid.UUID)
 
     await db.commit()
     return created_map
+

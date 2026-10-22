@@ -3,9 +3,8 @@ import {
   ShoppingCart,
   FileCheck2,
   PlusCircle,
-  Layers,
-  ArrowRightLeft,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { SalesDocumentsTab } from './components/SalesDocumentsTab';
 import { SalesCaptureTab } from './components/SalesCaptureTab';
 
@@ -13,24 +12,31 @@ export const SalesView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'documents' | 'capture'>('documents');
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="space-y-6 max-w-7xl mx-auto font-sans"
+    >
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2.5">
-            <ShoppingCart className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-[#047857]/10 dark:bg-[#047857]/20 text-[#047857] flex items-center justify-center">
+              <ShoppingCart className="w-5 h-5 text-[#047857]" />
+            </div>
             <span>Módulo 3: Ventas y Facturación Electrónica</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Flujo documental Cotización $\rightarrow$ Pedido $\rightarrow$ Factura CFDI 4.0 con sellado CSD y reserva de inventario.
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            Flujo documental Cotización &rarr; Pedido &rarr; Factura CFDI 4.0 con sellado CSD y reserva de inventario.
           </p>
         </div>
 
-        {/* Tab switcher button */}
+        {/* Tab switcher button in Emerald (#047857) */}
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab(activeTab === 'documents' ? 'capture' : 'documents')}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 bg-[#047857] hover:bg-emerald-800 text-white rounded-xl text-xs font-semibold shadow-sm shadow-emerald-950/20 active:scale-95 transition-all cursor-pointer"
           >
             {activeTab === 'documents' ? (
               <>
@@ -53,7 +59,6 @@ export const SalesView: React.FC = () => {
       ) : (
         <SalesCaptureTab onDocumentCreated={() => setActiveTab('documents')} />
       )}
-    </div>
+    </motion.div>
   );
 };
-

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { apiClient } from '../../api/axiosClient';
 import {
   CashRegister,
@@ -415,10 +416,15 @@ export const POSView: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col h-full space-y-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="flex flex-col h-full space-y-4 max-w-7xl mx-auto font-sans"
+    >
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-20 right-8 z-50 bg-emerald-600 text-white px-4 py-2.5 rounded-xl shadow-xl flex items-center space-x-2 text-xs font-bold animate-in fade-in slide-in-from-top-4">
+        <div className="fixed top-20 right-8 z-50 bg-[#047857] text-white px-4 py-2.5 rounded-xl shadow-xl flex items-center space-x-2 text-xs font-bold animate-in fade-in slide-in-from-top-4">
           <CheckCircle2 className="w-4 h-4" />
           <span>{toastMessage}</span>
         </div>
@@ -432,30 +438,30 @@ export const POSView: React.FC = () => {
       )}
 
       {/* Top POS Control Bar */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700/60 p-5 flex flex-wrap items-center justify-between gap-4">
         {/* Cash Register & Status */}
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <Receipt className="w-6 h-6" />
+          <div className="w-12 h-12 bg-[#047857]/10 dark:bg-[#047857]/20 text-[#047857] rounded-2xl flex items-center justify-center border border-[#047857]/20">
+            <Receipt className="w-6 h-6 text-[#047857]" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h1 className="text-lg font-bold text-slate-900 tracking-tight">
-                Punto de Venta (POS)
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
+                Módulo 4: Punto de Venta (POS)
               </h1>
               {activeSession ? (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/70 text-[#047857] dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#047857] mr-1.5 animate-pulse"></span>
                   TURNO ABIERTO
                 </span>
               ) : (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 dark:bg-rose-950/70 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-900">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span>
                   CAJA CERRADA
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
               {activeSession
                 ? `Caja: ${activeSession.cash_register_name || 'CAJA-01'} | Cajero: ${activeSession.cashier_name || 'Operador'}`
                 : 'Seleccione una caja y aperture un turno para operar.'}
@@ -890,7 +896,7 @@ export const POSView: React.FC = () => {
           loadTickets();
         }}
       />
-    </div>
+    </motion.div>
   );
 };
 export default POSView;
