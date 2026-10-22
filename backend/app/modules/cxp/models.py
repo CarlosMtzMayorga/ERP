@@ -72,3 +72,4 @@ class SupplierPaymentDocRel(Base, TenantMixin):
 
     payment = relationship("SupplierPayment", back_populates="related_docs")
     payable_document = relationship("app.modules.purchases.models.PayableDocument")
+

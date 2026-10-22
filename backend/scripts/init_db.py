@@ -22,6 +22,7 @@ from app.modules.cxc.models import ReceivableDocument, PaymentReceipt, PaymentRe
 from app.modules.purchases.models import PurchaseDocument, PurchaseDocumentItem, PayableDocument
 from app.modules.banking.models import BankTransaction
 from app.modules.cxp.models import SupplierPayment, SupplierPaymentDocRel
+from app.modules.payroll.models import Employee, PayrollPeriod, PayrollIncident, PayrollReceipt, PayrollReceiptItem
 
 # Standard initial permissions across all 10 ERP modules
 INITIAL_PERMISSIONS = [
@@ -309,6 +310,114 @@ async def init_database():
                 session.add(default_acc)
                 await session.commit()
                 print("[+] Cuenta bancaria inicial configurada con $250,000.00 MXN de saldo de apertura.")
+
+        # Seed Folio series and demo employees for Payroll
+        if demo_tenant:
+            nom_serie_res = await session.execute(
+                select(FiscalFoliosSeries).where(
+                    FiscalFoliosSeries.tenant_id == demo_tenant.id,
+                    FiscalFoliosSeries.document_type == "NOMINA"
+                )
+            )
+            if not nom_serie_res.scalars().first():
+                nom_serie = FiscalFoliosSeries(
+                    tenant_id=demo_tenant.id,
+                    branch_id=main_branch.id if 'main_branch' in locals() else None,
+                    document_type="NOMINA",
+                    serie="NOM",
+                    initial_folio=1,
+                    current_folio=0,
+                    is_default=True
+                )
+                session.add(nom_serie)
+                await session.commit()
+                print("[+] Serie de folios 'NOM' para nómina configurada.")
+
+            # Seed demo employees if none exist
+            emp_res = await session.execute(
+                select(Employee).where(Employee.tenant_id == demo_tenant.id)
+            )
+            if not emp_res.scalars().first():
+                demo_employees = [
+                    Employee(
+                        tenant_id=demo_tenant.id,
+                        code="EMP-001",
+                        first_name="Alejandro",
+                        last_name="Ramírez Morales",
+                        email="alejandro.ramirez@erpsaas.com",
+                        phone="5512345678",
+                        rfc="RAMA850315HQ8",
+                        curp="RAMA850315HDFMR03",
+                        nss="12345678901",
+                        zip_code="06000",
+                        daily_salary=Decimal("650.0000"),
+                        integrated_daily_salary=Decimal("682.0000"),
+                        contract_type="01",
+                        work_shift_type="01",
+                        regime_type="02",
+                        risk_class="1",
+                        periodicity="04",
+                        department="Desarrollo",
+                        job_title="Ingeniero de Software Senior",
+                        bank_name="BBVA México",
+                        bank_account_number="012180001234567891",
+                        status="ACTIVO",
+                        is_active=True
+                    ),
+                    Employee(
+                        tenant_id=demo_tenant.id,
+                        code="EMP-002",
+                        first_name="Mariana",
+                        last_name="López Guerrero",
+                        email="mariana.lopez@erpsaas.com",
+                        phone="5587654321",
+                        rfc="LOGM9006208T5",
+                        curp="LOGM900620MDFRRA02",
+                        nss="23456789012",
+                        zip_code="06000",
+                        daily_salary=Decimal("500.0000"),
+                        integrated_daily_salary=Decimal("524.5000"),
+                        contract_type="01",
+                        work_shift_type="01",
+                        regime_type="02",
+                        risk_class="1",
+                        periodicity="04",
+                        department="Finanzas",
+                        job_title="Contadora General",
+                        bank_name="BBVA México",
+                        bank_account_number="012180001234567892",
+                        status="ACTIVO",
+                        is_active=True
+                    ),
+                    Employee(
+                        tenant_id=demo_tenant.id,
+                        code="EMP-003",
+                        first_name="Carlos",
+                        last_name="Hernández Cruz",
+                        email="carlos.hernandez@erpsaas.com",
+                        phone="5543218765",
+                        rfc="HECC921110KN2",
+                        curp="HECC921110HDFRZ01",
+                        nss="34567890123",
+                        zip_code="06000",
+                        daily_salary=Decimal("380.0000"),
+                        integrated_daily_salary=Decimal("398.7000"),
+                        contract_type="01",
+                        work_shift_type="01",
+                        regime_type="02",
+                        risk_class="2",
+                        periodicity="04",
+                        department="Operaciones",
+                        job_title="Coordinador de Logística",
+                        bank_name="BBVA México",
+                        bank_account_number="012180001234567893",
+                        status="ACTIVO",
+                        is_active=True
+                    ),
+                ]
+                session.add_all(demo_employees)
+                await session.commit()
+                print("[+] 3 Empleados demo registrados exitosamente con RFC, CURP, NSS y Salarios LFT.")
 
         await engine.dispose()
     print("\n[SUCCESS] Inicialización completada exitosamente.")

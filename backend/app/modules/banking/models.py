@@ -52,3 +52,4 @@ class BankTransaction(Base, TenantMixin):
         Index("idx_bank_tx_account_date", "tenant_id", "bank_account_id", "transaction_date"),
         Index("idx_bank_tx_reconciliation", "tenant_id", "bank_account_id", "is_reconciled"),
     )
+

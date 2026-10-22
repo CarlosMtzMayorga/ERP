@@ -860,3 +860,4 @@ export const BankingView: React.FC = () => {
     </div>
   );
 };
+

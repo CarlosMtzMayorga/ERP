@@ -38,3 +38,4 @@ export interface BankingDashboardMetrics {
   accounts: BankAccount[];
   recent_transactions: BankTransaction[];
 }
+

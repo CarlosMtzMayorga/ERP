@@ -346,3 +346,4 @@ async def test_bank_reconciliation_separates_book_and_reconciled_balances():
         assert updated_acc.current_balance == Decimal("13000.00")
 
     await engine.dispose()
+

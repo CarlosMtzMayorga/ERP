@@ -347,3 +347,4 @@ async def get_cxp_dashboard_metrics(
         active_creditors_count=active_creditors,
         schedule_summary=schedule
     )
+

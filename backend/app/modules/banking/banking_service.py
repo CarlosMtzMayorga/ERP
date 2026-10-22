@@ -328,3 +328,4 @@ async def get_banking_dashboard(
         accounts=accounts_payload,
         recent_transactions=recent_payload
     )
+

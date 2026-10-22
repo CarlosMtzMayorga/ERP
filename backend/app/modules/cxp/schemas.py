@@ -93,3 +93,4 @@ class CxPDashboardMetrics(BaseModel):
     paid_this_month: Decimal
     active_creditors_count: int
     schedule_summary: PaymentScheduleSummary
+

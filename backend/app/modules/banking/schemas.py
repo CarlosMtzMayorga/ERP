@@ -78,3 +78,4 @@ class BankingDashboardMetrics(BaseModel):
     monthly_outflow: Decimal
     accounts: List[BankAccountResponse] = []
     recent_transactions: List[BankTransactionResponse] = []
+

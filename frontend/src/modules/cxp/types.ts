@@ -64,3 +64,4 @@ export interface SupplierPayment {
   notes?: string;
   related_docs: SupplierPaymentDocRel[];
 }
+
